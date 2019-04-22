@@ -1,0 +1,9 @@
+#!/usr/bin/env python3
+
+import ayatana_indicator_updatenotifier
+
+updater = AyatanaUpdateNotifier()
+
+exit_status = updater.run()
+
+sys.exit(ext_status)
