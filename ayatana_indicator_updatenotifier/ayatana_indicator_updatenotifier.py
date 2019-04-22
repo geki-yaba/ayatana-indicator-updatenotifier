@@ -9,7 +9,7 @@ config = dict(
     title = 'Updates Available',
 
     # The message to be shown in the pop-up.
-    message = 'There are updates available to install.',
+    message = 'There are {0} updates available to install.',
 
     # Icon to use in the indicator and pop-up.
     icon = '/usr/share/ayatana-indicator-updatenotifier/updates.svg',
@@ -17,9 +17,9 @@ config = dict(
     # Frequency to check for available updates.
     interval = 3600, # 1 hour
 
-    # Command to run to check for available updates, and the expected status
-    # code that indicates updates are available.
-    check = '/usr/bin/apt-get -s dist-upgrade | /bin/grep -c "^Inst "',
+    # Command to run to check for available updates, and the expected output
+    # that indicates updates are available. Print count of updates available.
+    check = '/usr/share/ayatana-indicator-updatenotifier/ayatana-indicator-updatecheck',
 )
 
 ################################################################################
@@ -104,17 +104,17 @@ class AyatanaUpdateNotifier:
         self.app.hold()
 
         if (int(time()) >= self.next_check):
-            status = subprocess.getoutput(config['check'])
+            count = subprocess.getoutput(config['check'])
 
             # Updates?
-            if (status != '0'):
+            if (count != '0'):
                 # show indicator icon
                 self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
 
                 # show notification popup
                 icon = Gio.Icon.new_for_string(config['icon'])
                 notifier = Gio.Notification.new(config['title'])
-                notifier.set_body(config['message'])
+                notifier.set_body(config['message'].format(count))
                 notifier.set_default_action('app.hide')
                 notifier.set_icon(icon)
 

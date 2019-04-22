@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/apt-get -s dist-upgrade | /bin/grep -c "^Inst "
