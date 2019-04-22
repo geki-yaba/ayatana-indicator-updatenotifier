@@ -5,7 +5,8 @@ Ayatana Indicator and notification pop-up when updates are available. Set this
 script to run on session startup, and it will check for updates every hour.
 
 The command to run the update check and interval thereof is configurable in the
-source code. Text to display in notification pop-up is also configurable.
+source code and cron jobs. Text to display in notification pop-up is also
+configurable.
 
 This is intended for desktop environments like XFCE or MATE that don't have a
 native PackageKit update watcher.
