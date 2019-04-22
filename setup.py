@@ -13,10 +13,6 @@ setuptools.setup(
     long_description_content_type="text/plain",
     url="https://github.com/AyatanaIndicators/ayatana-indicator-updatenotifier",
     packages=setuptools.find_packages(),
-    include_package_data=True,
-    package_data={
-        '': ['*.svg',],
-    },
     python_requires='>=3',
     classifiers=[
         "Programming Language :: Python :: 3",
