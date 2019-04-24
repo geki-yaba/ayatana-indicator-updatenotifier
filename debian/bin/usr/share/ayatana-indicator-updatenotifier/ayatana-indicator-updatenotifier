@@ -6,4 +6,4 @@ updater = AyatanaUpdateNotifier()
 
 exit_status = updater.run()
 
-sys.exit(ext_status)
+sys.exit(exit_status)

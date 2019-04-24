@@ -103,7 +103,6 @@ class AyatanaUpdateNotifier:
         if (int(time()) >= self.next_check):
             count = subprocess.getoutput(config['check'])
 
-            # Updates?
             if (count != '0'):
                 # show indicator icon
                 self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
