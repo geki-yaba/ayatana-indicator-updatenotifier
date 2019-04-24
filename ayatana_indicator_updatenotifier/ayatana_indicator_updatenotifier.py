@@ -49,9 +49,6 @@ class AyatanaUpdateNotifier:
         # service to run only one instance and allow to functioning as-is
         self.app = Gio.Application.new('ayatana.update.notifier.app', Gio.ApplicationFlags.IS_SERVICE)
 
-        # have an indicator reference
-        self.indicator = None
-
         try:
             if (self.app.register() == True):
                 # keep application running
@@ -120,7 +117,7 @@ class AyatanaUpdateNotifier:
 
                 self.app.send_notification('ayatana-update-notifier-popup', notifier)
 
-        self.next_check = self.next_check + config['interval'] + int(random() * 300)
+            self.next_check = self.next_check + config['interval'] + int(random() * 300)
 
         # keep application running
         self.app.release()
@@ -159,6 +156,6 @@ if __name__ == '__main__':
 
     exit_status = updater.run()
 
-    sys.exit(ext_status)
+    sys.exit(exit_status)
 
 # vim:expandtab
