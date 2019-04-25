@@ -14,12 +14,12 @@ config = dict(
     # Icon to use in the indicator and pop-up.
     icon = '/usr/share/ayatana-indicator-updatenotifier/updates.svg',
 
-    # Frequency to check for available updates.
-    interval = 3600, # 1 hour
-
     # Command to run to check for available updates, and the expected output
     # that indicates updates are available. Print count of updates available.
     check = '/usr/share/ayatana-indicator-updatenotifier/ayatana-indicator-updatecheck',
+
+    # Frequency to check for available updates.
+    interval = 3600, # 1 hour
 )
 
 ################################################################################
