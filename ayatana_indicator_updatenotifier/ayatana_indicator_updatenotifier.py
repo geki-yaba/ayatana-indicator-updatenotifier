@@ -104,8 +104,9 @@ class AyatanaUpdateNotifier:
             count = subprocess.getoutput(config['check'])
 
             if (count != '0'):
-                # show indicator icon
+                # show indicator icon and update count
                 self.indicator.set_status(appindicator.IndicatorStatus.ACTIVE)
+                self.indicator.set_label('{0} pkgs'.format(count),'{0} pkgs'.format(count))
 
                 # show notification popup
                 icon = Gio.Icon.new_for_string(config['icon'])
