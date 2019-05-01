@@ -4,8 +4,9 @@ MAILTO=""
 
 test -x /usr/bin/apt-get || exit 0
 
+TIME_MIN="60"
 TIME_MAX="180"
-TIME_INT="$(/usr/bin/shuf -i 0-$TIME_MAX -n 1)"
+TIME_INT="$(/usr/bin/shuf -i $TIME_MIN-$TIME_MAX -n 1)"
 
 /bin/sleep $TIME_INT
 /usr/bin/apt-get update
