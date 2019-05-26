@@ -73,11 +73,23 @@ class AyatanaUpdateNotifier:
         except GLib.Error as e:
             print('Failed to register service: {0} ({1})'.format(e.message, e.code))
 
+    # internal: get indicator icon
+    def _get_icon_file(self, size):
+        global config
+        icon_file = config['icon']
+
+        icon_theme = Gtk.IconTheme.get_default()
+        icon_info = icon_theme.choose_icon(['system-software-update'], size, 0)
+        if (icon_info != None):
+            icon_file = icon_info.get_filename()
+        return icon_file
+
     # internal: create indicator app
     def _indicator_app(self):
         global config
-        indicator = appindicator.Indicator.new('ayatana.update.notifier.indicator', config['icon'],
-            appindicator.IndicatorCategory.SYSTEM_SERVICES)
+        # FIXME default icon size for indicator app?!
+        indicator = appindicator.Indicator.new('ayatana.update.notifier.indicator',
+            self._get_icon_file(24), appindicator.IndicatorCategory.SYSTEM_SERVICES)
         indicator.set_title(config['title'])
         indicator.connect('connection-changed', self._on_connect_changed)
 
@@ -109,7 +121,7 @@ class AyatanaUpdateNotifier:
                 self.indicator.set_label('{0} pkgs'.format(count),'{0} pkgs'.format(count))
 
                 # show notification popup
-                icon = Gio.Icon.new_for_string(config['icon'])
+                icon = Gio.Icon.new_for_string(self._get_icon_file(-1))
                 notifier = Gio.Notification.new(config['title'])
                 notifier.set_body(config['message'].format(count))
                 notifier.set_default_action('app.hide')
