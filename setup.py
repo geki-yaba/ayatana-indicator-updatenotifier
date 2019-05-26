@@ -10,7 +10,7 @@ setuptools.setup(
     author_email="none",
     description="A simple system packages update checker",
     long_description=long_description,
-    long_description_content_type="text/plain",
+    long_description_content_type="text/markdown",
     url="https://github.com/AyatanaIndicators/ayatana-indicator-updatenotifier",
     packages=setuptools.find_packages(),
     python_requires='>=3',
