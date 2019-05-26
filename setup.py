@@ -14,10 +14,20 @@ setuptools.setup(
     url="https://github.com/AyatanaIndicators/ayatana-indicator-updatenotifier",
     packages=setuptools.find_packages(),
     python_requires='>=3',
-    classifiers=[
+    classifiers=
+    [
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
+    ],
+    data_files=
+    [
+        ('/usr/lib/ayatana-indicator-updatenotifier',
+        [
+            'bin/ayatana-indicator-updatenotifier',
+            'libexec/ayatana-indicator-updatecheck',
+            'data/updates.svg',
+        ])
     ],
 )
 
