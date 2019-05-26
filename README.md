@@ -1,4 +1,4 @@
-# ayatana-indicator-updatenotifier: A simple system packages update checker.
+#### ayatana-indicator-updatenotifier: A simple system packages update checker.
 
 The python module will show an Ayatana Indicator and notification pop-up when updates are available. Set this script to run on session startup, and it will check for updates every hour by default.
 
