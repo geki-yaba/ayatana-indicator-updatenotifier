@@ -9,16 +9,15 @@ interval is configurable in the python module.
 
 This is intended for desktop environments like XFCE or MATE that don't have a
 native PackageKit update watcher.
-
 ___
 Use the distribution-specific cron jobs from package cron-apt or apticron or
 these hand-crafted ones:
 
-$ cat /etc/cron.d/ayatana_indicator_updatenotifier
+##### $ cat /etc/cron.d/ayatana_indicator_updatenotifier
 ```
 @reboot root /etc/cron.hourly/ayatana_indicator_updatenotifier
 ```
-$ cat /etc/cron.hourly/ayatana_indicator_updatenotifier
+##### $ cat /etc/cron.hourly/ayatana_indicator_updatenotifier
 ```
 #!/bin/sh
 
@@ -37,7 +36,6 @@ exit $?
 ```
 ___
 Use the usr-share helper script to watch for available package updates.
-
 ___
 See the LICENSE file for how to be modified and distributed.
 
