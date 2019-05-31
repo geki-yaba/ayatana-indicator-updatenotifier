@@ -27,7 +27,11 @@ setuptools.setup(
             'bin/ayatana-indicator-updatenotifier',
             'libexec/ayatana-indicator-updatecheck',
             'data/updates.svg',
-        ])
+        ]),
+        ('/etc/xdg/autostart',
+        [
+            'data/ayatana-indicator-updatenotifier.desktop',
+        ]),
     ],
 )
 
