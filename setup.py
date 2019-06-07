@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ayatana-indicator-updatenotifier",
-    version="0.0.3",
+    version="0.0.4",
     author="Hanno Meyer-Thurow",
     author_email="none",
     description="A simple system packages update checker",
