@@ -1,0 +1,1 @@
+from .ayatana_indicator_updatenotifier import AyatanaUpdateNotifier
