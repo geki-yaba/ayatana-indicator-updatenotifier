@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ ! -x /usr/bin/apt-get ]
+then
+	echo 'null'
+	exit -1
+fi
+
+exec /usr/bin/apt-get -s dist-upgrade | /bin/grep "^Inst " | cut -f2 -d' '
