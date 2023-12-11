@@ -89,7 +89,6 @@ class AyatanaUpdateNotifier:
     # internal: create indicator app
     def _indicator_app(self):
         global config
-        # FIXME default icon size for indicator app?!
         indicator = appindicator.Indicator.new('ayatana.update.notifier.indicator',
             self._get_icon_file(Gtk.IconSize.LARGE_TOOLBAR), appindicator.IndicatorCategory.SYSTEM_SERVICES)
         indicator.set_title(config['title'])
@@ -128,6 +127,8 @@ class AyatanaUpdateNotifier:
         self.app.hold()
 
         if (int(time()) >= self.next_check):
+            self.next_check = self.next_check + config['interval'] + int(random() * 300)
+
             count = subprocess.getoutput(config['pkg_check'])
 
             if (count != '0'):
@@ -148,8 +149,6 @@ class AyatanaUpdateNotifier:
 
                 # reset indicator menu
                 self._indicator_menu(count, pkgs)
-
-            self.next_check = self.next_check + config['interval'] + int(random() * 300)
 
         # keep application running
         self.app.release()
