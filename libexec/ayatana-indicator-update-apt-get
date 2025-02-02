@@ -1,0 +1,21 @@
+#/bin/sh
+
+# vim: set sts=4 ts=4 sw=4 ai si et number:
+
+if [ ! -x /usr/bin/apt-get ]
+then
+	echo 'null'
+	exit -1
+fi
+
+/bin/su -c \
+    "/usr/bin/apt-get dist-upgrade \
+    && /usr/bin/apt-get upgrade \
+    && /usr/bin/apt-get autoremove \
+    && /usr/bin/apt-get autoclean \
+    && /usr/bin/apt-get clean"
+
+read -r -s -n 1 -p "Press any key to close window."
+echo
+
+exit ${?}

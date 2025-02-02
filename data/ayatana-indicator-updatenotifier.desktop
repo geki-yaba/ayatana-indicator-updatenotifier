@@ -1,7 +1,7 @@
 [Desktop Entry]
 Type=Application
 Name=Ayatana Indicator Update Notifier
-Exec=/usr/lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatenotifier
+Exec=ayatana-indicator-updatenotifier
 StartupNotify=false
 Terminal=false
 OnlyShowIn=Unity;MATE;XFCE;Budgie;

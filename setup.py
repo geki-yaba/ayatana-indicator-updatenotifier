@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="ayatana-indicator-updatenotifier",
-    version="0.0.6",
+    version="0.0.7",
     author="Hanno Zysik",
     author_email="none",
     description="A simple system packages update checker",
@@ -22,14 +22,18 @@ setuptools.setup(
     ],
     data_files=
     [
-        ('/usr/lib/ayatana-indicator-updatenotifier',
+        ('bin',
         [
             'bin/ayatana-indicator-updatenotifier',
+        ]),
+        ('lib/ayatana-indicator-updatenotifier',
+        [
+            'libexec/ayatana-indicator-update-apt-get',
             'libexec/ayatana-indicator-updatecheck',
             'libexec/ayatana-indicator-updatelist',
             'data/updates.svg',
         ]),
-        ('/etc/xdg/autostart',
+        ('share/applications',
         [
             'data/ayatana-indicator-updatenotifier.desktop',
         ]),

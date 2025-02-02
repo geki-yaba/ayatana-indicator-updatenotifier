@@ -4,6 +4,42 @@
 # Configuration Section Begins Here                                            #
 ################################################################################
 
+import os
+import sys
+
+# prefix function from
+# Copyright (C) 2010-2012  James Shubin
+# https://purpleidea.com/blog/2012/09/20/finding-your-software-install-prefix-from-inside-python/
+def prefix(join=None):
+    """Returns the prefix that this code was installed into."""
+    path = os.path.abspath(__file__)
+    name = os.path.basename(os.path.dirname(path))
+    this = os.path.basename(path)
+
+    version_info = sys.version.split()
+    major, minor, micro = version_info[0].split('.')
+
+    # rule set
+    rules = [
+        lambda x: x == 'lib',
+        lambda x: x == f'python{major}.{minor}',
+        lambda x: x in ['site-packages', 'dist-packages'],
+        lambda x: x == name,    # 'project'
+        lambda x: x == this,    # '.py'
+    ]
+
+    # matching engine
+    while len(rules) > 0:
+        (path, token) = os.path.split(path)
+        rule = rules.pop()
+        if not rule(token):
+            return False
+
+    if join is None:
+        return path
+
+    return os.path.join(path, join)
+
 config = dict(
     # The title to be shown in the pop-up.
     title = 'Updates Available',
@@ -12,12 +48,14 @@ config = dict(
     message = 'There are {0} updates available to install.\n\nPackage list:\n{1}',
 
     # Icon to use in the indicator and pop-up.
-    icon = '/usr/lib/ayatana-indicator-updatenotifier/updates.svg',
+    icon = prefix('lib/ayatana-indicator-updatenotifier/updates.svg'),
 
     # Command to run to check for available updates, and the expected output
     # that indicates updates are available. Print count of updates available.
-    pkg_check = '/usr/lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatecheck',
-    pkg_list = '/usr/lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatelist',
+    pkg_check = prefix('lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatecheck'),
+    pkg_list = prefix('lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatelist'),
+    pkg_update = prefix('lib/ayatana-indicator-updatenotifier/ayatana-indicator-update-apt-get'),
+    terminal = '/usr/bin/xterm -e',
 
     # Frequency to check for available updates.
     interval = 3600, # 1 hour
@@ -104,6 +142,10 @@ class AyatanaUpdateNotifier:
         item_hide.connect('activate', self._on_menu_hide)
         menu.append(item_hide)
 
+        item_update = Gtk.MenuItem.new_with_label('Update')
+        item_hide.connect('activate', self._on_menu_update)
+        menu.append(item_update)
+
         if (count != '0'):
             menu.append(Gtk.SeparatorMenuItem())
 
@@ -162,6 +204,11 @@ class AyatanaUpdateNotifier:
     # callback: hide indicator app from indicator menu
     def _on_menu_hide(self, menu_item):
         self.indicator.set_status(appindicator.IndicatorStatus.PASSIVE)
+
+    # callback: update indicator app from indicator menu
+    def _on_menu_update(self, menu_item):
+        self.indicator.set_status(appindicator.IndicatorStatus.PASSIVE)
+        os.system('{0} {1}'.format(config['terminal'], config['pkg_update']))
 
     # callback: is application connected to ayatana service
     def _on_connect_changed(self, indicator, connected):

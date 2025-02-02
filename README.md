@@ -1,12 +1,12 @@
 #### ayatana-indicator-updatenotifier: A simple system packages update checker.
 
-The python module will show an Ayatana Indicator and notification pop-up when updates are available. By default, it will be started with autostart and checks for updates every hour.
+The python module will show an Ayatana Indicator and notification pop-up when updates are available and checks for updates every hour. By default, it will not be started with autostart.
 
 The fallback icon and text to display in notification pop-up and the update check interval is configurable in the python module.
 
 This is intended for desktop environments like XFCE or MATE that don't have a native PackageKit update watcher.
 ___
-The _ayatana-indicator-updatenotifier.desktop_ file is installed to _/etc/xdg/autostart_. Remove it, if it should not be started automatically.
+The _ayatana-indicator-updatenotifier.desktop_ file is installed to _{prefix}/share/applications_. Link to _/etc/xdg/autostart_, if it should be started automatically.
 ___
 Use the distribution-specific cron jobs from package _cron-apt_ or _apticron_ or something like these hand-crafted ones:
 
