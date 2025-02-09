@@ -55,7 +55,8 @@ config = dict(
     pkg_check = prefix('lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatecheck'),
     pkg_list = prefix('lib/ayatana-indicator-updatenotifier/ayatana-indicator-updatelist'),
     pkg_update = prefix('lib/ayatana-indicator-updatenotifier/ayatana-indicator-update-apt-get'),
-    terminal = '/usr/bin/xterm -e',
+    terminal = '/usr/bin/xterm',
+    terminal_execute_flag = '-e',
 
     # Frequency to check for available updates.
     interval = 3600, # 1 hour
@@ -72,7 +73,6 @@ try:
     gi.require_version('AyatanaAppIndicator3', '0.1')
     from gi.repository import AyatanaAppIndicator3 as appindicator
 
-    import sys
     import subprocess
     from time import time
     from random import random
@@ -143,7 +143,7 @@ class AyatanaUpdateNotifier:
         menu.append(item_hide)
 
         item_update = Gtk.MenuItem.new_with_label('Update')
-        item_hide.connect('activate', self._on_menu_update)
+        item_update.connect('activate', self._on_menu_update)
         menu.append(item_update)
 
         if (count != '0'):
@@ -208,7 +208,8 @@ class AyatanaUpdateNotifier:
     # callback: update indicator app from indicator menu
     def _on_menu_update(self, menu_item):
         self.indicator.set_status(appindicator.IndicatorStatus.PASSIVE)
-        os.system('{0} {1}'.format(config['terminal'], config['pkg_update']))
+        with subprocess.Popen([config['terminal'], config['terminal_execute_flag'], config['pkg_update']]) as p:
+            p.wait()
 
     # callback: is application connected to ayatana service
     def _on_connect_changed(self, indicator, connected):
